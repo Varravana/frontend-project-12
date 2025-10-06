@@ -1,4 +1,4 @@
-import App from './App.jsx'
+import App from './Components/App.jsx'
 import ReactDOM from 'react-dom/client'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

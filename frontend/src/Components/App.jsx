@@ -1,0 +1,24 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './LoginPage.jsx'
+import NotFound from './NotFound.jsx'
+import { Button, Navbar, Nav, Container } from 'react-bootstrap'
+
+const App = () => {
+  return (
+    <>
+    <Navbar bg="white" className='shadow-sm' expand="lg">
+      <Container>
+        <Navbar.Brand href="/">Varravana Chat</Navbar.Brand>
+      </Container>
+    </Navbar>
+    <BrowserRouter>
+      <Routes>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+    </>
+      )
+}
+
+export default App
