@@ -1,8 +1,9 @@
 import React from 'react'
+import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
-import fox from '../img/fox.png';
+import cat from '../img/cat.png';
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
@@ -13,7 +14,16 @@ const LoginPage = () => {
       password: '',
     },
     onSubmit: values => {
-      console.log(values)
+      axios.post('/login', values)
+        .then((response) => {
+          if (response.data) {
+            localStorage.setItem('token', response.data.token)
+            console.log(response)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   });
 
@@ -25,15 +35,17 @@ const LoginPage = () => {
             <Card.Body>
               <Row className='p-5'>
                 <Col className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
-                  <Image src={fox} roundedCircle />
+                  <Image src={cat} />
                 </Col>
                 <Col>
                   <Form className="my-4" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
                     <h1 className='text-center'>Войти</h1>
 
                     <FloatingLabel className="mb-3" controlId="floatingUsername" label="Username">
-                      <Form.Control type="text"
+                      <Form.Control
+                        type="text"
                         placeholder="username!"
+                        name='username'
                         onChange={formik.handleChange}
                         value={formik.values.username}
                         isInvalid={errorLogin}
@@ -48,7 +60,7 @@ const LoginPage = () => {
                         onChange={formik.handleChange}
                         value={formik.values.password}
                         isInvalid={errorLogin}
-                        />
+                      />
                     </FloatingLabel>
                     {errorLogin && (
                       <Form.Control.Feedback type="invalid">

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginPage from './LoginPage.jsx'
 import NotFound from './NotFound.jsx'
+import MainPage from './MainPage.jsx'
 import { Button, Navbar, Nav, Container } from 'react-bootstrap'
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="login" element={<LoginPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
