@@ -2,11 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
-import cat from '../img/cat.png';
+import cat from '../img/cat.png'
+import users from '../Utils/users.json'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
+const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -14,14 +17,16 @@ const LoginPage = () => {
       password: '',
     },
     onSubmit: values => {
-      axios.post('/login', values)
+      axios.post('/api/login', values)
         .then((response) => {
           if (response.data) {
-            localStorage.setItem('token', response.data.token)
-            console.log(response)
+            setErrorLogin(false)
+            localStorage.setItem('token', response.data.token) 
+             navigate('/', { replace: false })
           }
         })
         .catch((error) => {
+          setErrorLogin(true)
           console.log(error)
         })
     },
@@ -64,7 +69,7 @@ const LoginPage = () => {
                     </FloatingLabel>
                     {errorLogin && (
                       <Form.Control.Feedback type="invalid">
-                        The username or password is incorrect
+                        Неверные пароль или логин
                       </Form.Control.Feedback>
                     )}
 
