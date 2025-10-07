@@ -5,11 +5,11 @@ import { useFormik } from 'formik'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
 import cat from '../img/cat.png'
-import users from '../Utils/users.json'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -17,12 +17,12 @@ const navigate = useNavigate()
       password: '',
     },
     onSubmit: values => {
-      axios.post('/api/login', values)
+      axios.post('/api/v1/login', values)
         .then((response) => {
           if (response.data) {
             setErrorLogin(false)
-            localStorage.setItem('token', response.data.token) 
-             navigate('/', { replace: false })
+            localStorage.setItem('token', response.data.token)
+            navigate('/', { replace: false })
           }
         })
         .catch((error) => {
@@ -46,7 +46,7 @@ const navigate = useNavigate()
                   <Form className="my-4" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
                     <h1 className='text-center'>Войти</h1>
 
-                    <FloatingLabel className="mb-3" controlId="floatingUsername" label="Username">
+                    <FloatingLabel className="mb-3" controlId="floatingUsername" label="Ваш ник">
                       <Form.Control
                         type="text"
                         placeholder="username!"
@@ -57,7 +57,7 @@ const navigate = useNavigate()
                       />
                     </FloatingLabel>
 
-                    <FloatingLabel controlId="floatingPassword" label="Password">
+                    <FloatingLabel controlId="floatingPassword" label="Пароль" className='mb-4'>
                       <Form.Control
                         type="password"
                         placeholder="Password"
@@ -65,13 +65,15 @@ const navigate = useNavigate()
                         onChange={formik.handleChange}
                         value={formik.values.password}
                         isInvalid={errorLogin}
+
                       />
+
+                      {errorLogin && (
+                        <Form.Control.Feedback type="invalid">
+                          Неверные пароль или логин
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
-                    {errorLogin && (
-                      <Form.Control.Feedback type="invalid">
-                        Неверные пароль или логин
-                      </Form.Control.Feedback>
-                    )}
 
 
                     <Button variant="outline-primary" type="submit">Submit</Button>
