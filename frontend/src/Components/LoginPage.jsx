@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
-import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap'
+import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
 import fox from '../img/fox.png';
 
 const LoginPage = () => {
@@ -18,40 +18,57 @@ const LoginPage = () => {
   });
 
   return (
-    <Container>
-      <Row>
-        <Col>
-        <Image src={fox} roundedCircle />
-        </Col>
-        <Col>
-        <h1>Войти</h1>
-        <Form className="my-4" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
-          <Form.Group className="mb-3" controlId="formUsernamel">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text"
-              placeholder="username"
-              name="username"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-              isInvalid={errorLogin} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password"
-              placeholder="Password"
-              name="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              isInvalid={errorLogin} />
-            {errorLogin && (
-              <Form.Control.Feedback type="invalid">
-                The username or password is incorrect
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
+    <Container fluid>
+      <Row className='justify-content-center align-content-center h-100'>
+        <Col className='col-12 col-md-8 col-xxl-6'>
+          <Card className='shadow-sm'>
+            <Card.Body>
+              <Row className='p-5'>
+                <Col className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
+                  <Image src={fox} roundedCircle />
+                </Col>
+                <Col>
+                  <Form className="my-4" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
+                    <h1 className='text-center'>Войти</h1>
 
-          <Button variant="outline-primary" type="submit">Submit</Button>
-        </Form>
+                    <FloatingLabel className="mb-3" controlId="floatingUsername" label="Username">
+                      <Form.Control type="text"
+                        placeholder="username!"
+                        onChange={formik.handleChange}
+                        value={formik.values.username}
+                        isInvalid={errorLogin}
+                      />
+                    </FloatingLabel>
+
+                    <FloatingLabel controlId="floatingPassword" label="Password">
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        isInvalid={errorLogin}
+                        />
+                    </FloatingLabel>
+                    {errorLogin && (
+                      <Form.Control.Feedback type="invalid">
+                        The username or password is incorrect
+                      </Form.Control.Feedback>
+                    )}
+
+
+                    <Button variant="outline-primary" type="submit">Submit</Button>
+                  </Form>
+                </Col>
+              </Row>
+            </Card.Body>
+            <Card.Footer>
+              <div className='text-center'>
+                <span>Нет аккаунта? </span>
+                <a href=''>Регистрация</a>
+              </div>
+            </Card.Footer>
+          </Card>
         </Col>
       </Row>
     </Container>
