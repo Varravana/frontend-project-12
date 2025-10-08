@@ -3,16 +3,22 @@ import LoginPage from './LoginPage.jsx'
 import NotFound from './NotFound.jsx'
 import MainPage from './MainPage.jsx'
 import { Button, Navbar, Nav, Container } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+
 
 const ChatRoute = ({ children }) => {
-  const auth = localStorage.getItem('token')
+
+  const userLoginToken = useSelector(state => state.login.token)
 
   return (
-    auth  ? children : <Navigate to="/login" />
+    userLoginToken ? children : <Navigate to="/login" />
   )
 }
 
 const App = () => {
+
+
   return (
     <div className='bg-light h-100'>
       <Navbar bg="white" className='shadow-sm' expand="lg">
@@ -22,17 +28,17 @@ const App = () => {
       </Navbar>
 
 
-        <BrowserRouter>
-          <Routes>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="/" element={(
-              <ChatRoute>
-                <MainPage />
-              </ChatRoute>
-            )} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="/" element={(
+            <ChatRoute>
+              <MainPage />
+            </ChatRoute>
+          )} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
 
     </div>
   )

@@ -1,9 +1,37 @@
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
 import { useEffect, useRef, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import getNormalizedChanals from '../utilities/getNormalizet.js'
+import { actions as channelsActions } from '../slices/channelsSlice.js'
+
 
 const MainPage = () => {
 
-    const [curentChanal, setCurentChanal] = useState('111')
+    const dispatch = useDispatch()
+    const token = localStorage.getItem('token')
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { data } = await axios.get('/api/v1/channels', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            const normData = getNormalizedChanals(data)
+            dispatch(channelsActions.setChanals({ entities: normData, ids: Object.keys(normData) }))
+
+        }
+        fetchData()
+    })
+    const channelsList = () => {
+        const channelsEntities = useSelector(state => state.channels.entities)
+        const result = []
+    for (key in channelsEntities) {
+result.push(channelsEntities[key].name)
+    }
+    return result
+    }
+
     const clearLS = () => {
         localStorage.clear()
     }
@@ -17,9 +45,12 @@ const MainPage = () => {
                             <Button className='primary'>+</Button>
                         </div>
                         <ul id='chanals-box'>
-                            <li>
-                                <Button>первый канал</Button>
-                            </li>
+                            {channelsList.map((channel) =>
+                                <li>
+                                    <Button >{channel}</Button>
+                                </li>
+                            )}
+
                             <li>
                                 <Button onClick={() => clearLS()}>очистить локалсторадж</Button>
                             </li>

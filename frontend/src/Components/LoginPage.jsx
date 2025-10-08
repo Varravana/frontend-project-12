@@ -6,10 +6,13 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
 import cat from '../img/cat.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useDispatch } from 'react-redux'
+import { setLogin } from '../slices/loginSlice.js'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues: {
@@ -22,6 +25,8 @@ const LoginPage = () => {
           if (response.data) {
             setErrorLogin(false)
             localStorage.setItem('token', response.data.token)
+            localStorage.setItem('username', response.data.username)
+            dispatch(setLogin())
             navigate('/', { replace: false })
           }
         })
