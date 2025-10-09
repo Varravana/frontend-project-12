@@ -20,7 +20,7 @@ const App = () => {
 
 
   return (
-    <div className='bg-light h-100'>
+    <div className='d-flex flex-column h-100 '>
       <Navbar bg="white" className='shadow-sm' expand="lg">
         <Container>
           <Navbar.Brand href="/">Varravana Chat</Navbar.Brand>

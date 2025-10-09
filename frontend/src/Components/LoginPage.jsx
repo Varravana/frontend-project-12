@@ -38,17 +38,15 @@ const LoginPage = () => {
   });
 
   return (
-    <Container fluid>
+    <Container className='h-100 fluid '>
       <Row className='justify-content-center align-content-center h-100'>
-        <Col className='col-12 col-md-8 col-xxl-6'>
+        <div className='col-12 col-md-8 col-xxl-6'>
           <Card className='shadow-sm'>
-            <Card.Body>
-              <Row className='p-5'>
-                <Col className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
+            <Card.Body className='row p-5'>
+                <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
                   <Image src={cat} />
-                </Col>
-                <Col>
-                  <Form className="my-4" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
+                </div>
+                  <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
                     <h1 className='text-center'>Войти</h1>
 
                     <FloatingLabel className="mb-3" controlId="floatingUsername" label="Ваш ник">
@@ -83,8 +81,6 @@ const LoginPage = () => {
 
                     <Button variant="outline-primary" type="submit">Submit</Button>
                   </Form>
-                </Col>
-              </Row>
             </Card.Body>
             <Card.Footer>
               <div className='text-center'>
@@ -93,7 +89,7 @@ const LoginPage = () => {
               </div>
             </Card.Footer>
           </Card>
-        </Col>
+        </div>
       </Row>
     </Container>
   )
