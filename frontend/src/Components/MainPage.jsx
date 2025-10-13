@@ -3,19 +3,17 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ChannelsBox from './ChannelsBox.jsx'
 import MessagesBox from './MessagesBox.jsx'
+import InputMessage from './InputMessageForm.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import send from '../img/send.png'
 import add from '../img/add.png'
 
 
 const MainPage = () => {
-
     const currentChannelId = useSelector(state => state.curentChannel.id)
     const currentChannel = useSelector(state => state.channels.entities[currentChannelId])
-console.log(currentChannel)
     return (
 
- <Container className='rounded shadow my-4 overflow-hidden h-100' style={{ height: '100vh' }}>
+        <Container className='rounded shadow my-4 overflow-hidden h-100' style={{ height: '100vh' }}>
             <Row className='bg-white h-100 d-flex flex-md-row'>
                 <div className='d-flex flex-column bg-light col-4 col-md-2 border-end px-0 h-100 '>
                     <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
@@ -24,7 +22,7 @@ console.log(currentChannel)
                             <img src={add}></img>
                         </Button>
                     </div>
-                    <ChannelsBox/>
+                    <ChannelsBox />
                 </div>
                 <div className='col p-0 h-100'>
                     <div className='d-flex flex-column h-100'>
@@ -34,18 +32,9 @@ console.log(currentChannel)
                             </p>
                             <span className='text-muted'>0 сообщений </span>
                         </div>
-                        <MessagesBox/>
+                        <MessagesBox />
                         <div id='input-message' className='px-5 py-3 mt-auto'>
-                            <Form noValidate className='py-1 border rounded-2'>
-                                <Form.Group>
-                                    <InputGroup hasValidation>
-                                        <Form.Control className='border-0 p-0 ps-2' name='body' type="email" placeholder="Введите сообщение..." />
-                                        <Button variant="outline-secondary" type="submit">
-                                            <img img src={send}></img>
-                                        </Button>
-                                        </InputGroup>
-                                </Form.Group>
-                            </Form>
+                            <InputMessage />
                         </div>
                     </div>
                 </div>

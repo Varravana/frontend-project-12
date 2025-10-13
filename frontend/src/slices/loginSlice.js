@@ -9,9 +9,10 @@ const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    setLogin (state) {
-      state.token = localStorage.getItem('token')
-      state.username = localStorage.getItem('username')
+    setLogin (state, {payload}) {
+      const { token, username } = payload;
+      state.token = token;
+      state.username = username;
     },
   },
 })

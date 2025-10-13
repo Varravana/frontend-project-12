@@ -8,8 +8,7 @@ import { useEffect } from 'react'
 
 
 const ChatRoute = ({ children }) => {
-
-  const userLoginToken = useSelector(state => state.login.token)
+  const userLoginToken = localStorage.getItem('token')
 
   return (
     userLoginToken ? children : <Navigate to="/login" />

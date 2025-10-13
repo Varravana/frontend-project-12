@@ -26,7 +26,7 @@ const LoginPage = () => {
             setErrorLogin(false)
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('username', response.data.username)
-            dispatch(setLogin())
+            dispatch(setLogin({ token: response.data.token, username: response.data.username }))
             navigate('/', { replace: false })
           }
         })

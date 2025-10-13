@@ -9,26 +9,28 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 const ChannelsBox = () => {
-
     const dispatch = useDispatch()
-    const token = useSelector(state => state.login.token)
+    const token = localStorage.getItem('token')
+
 
     useEffect(() => {
+
         const fetchData = async () => {
-            const responseChannels = await axios.get('/api/v1/channels', {
-                //[{ id: '1', name: 'general', removable: false }, ...]
+            await axios.get('/api/v1/channels', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+            }).then((responze) => {
+                const normDataChannels = getNormalized(responze.data)
+                dispatch(setChannels({ entities: normDataChannels, ids: Object.keys(normDataChannels) }))
+            }). catch ((error) => {
+                console.log('ошибка загрузки каналов', error)
             })
 
-            if (responseChannels.data) {
-                const normDataChannels = getNormalized(responseChannels.data)
-                dispatch(setChannels({ entities: normDataChannels, ids: Object.keys(normDataChannels) }))
-            }
         }
         fetchData()
-    }, [])
+
+    },[])
 
     const channelsEntities = useSelector(state => state.channels.entities)
     const currentChannel = useSelector(state => state.curentChannel.id)
@@ -41,7 +43,7 @@ const ChannelsBox = () => {
                 <Nav.Item className='w-100'>
                     <Button className={currentChannel === key ? 'w-100 rounded-0 text-start btn-secondary' : 'w-100 rounded-0 text-start btn-light'}
                         onClick={() => dispatch(setcurentChannel({ id: key }))}
-                        >
+                    >
                         <span className='me-1'>#</span>
                         {value.name}</Button>
                 </Nav.Item>

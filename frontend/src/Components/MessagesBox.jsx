@@ -11,23 +11,33 @@ const MessagesBox = () => {
     const token = localStorage.getItem('token')
     useEffect(() => {
         const fetchData = async () => {
-
             const responseMessages = await axios.get('/api/v1/messages', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
-
-            if (responseMessages.data) {
+            if (responseMessages.data) { //[{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
                 const normDataMessages = getNormalized(responseMessages.data)
                 dispatch(setMessages({ entities: normDataMessages, ids: Object.keys(normDataMessages) }))
             }
         }
         fetchData()
-    })
+    }, [])
+
+    const currentChannelId = useSelector(state => state.curentChannel.id)
+
+    const allMessages = Object.values(useSelector(state => state.messages.entities))
+    .filter(message => message.channelId === currentChannelId)
 
     return (
-<div id='messages-box' className='px-5 overflow-auto'>mmess</div>
+        <div id='messages-box' className='px-5 overflow-auto'>
+            {allMessages.map((message) =>
+                <div key={message.id} className="text-break mb-2">
+                    <b>{message.username}</b>
+                    : 
+                    {message.body}
+                </div>)}
+        </div>
     )
 }
 
