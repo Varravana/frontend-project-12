@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import ChannelsBox from './ChannelsBox.jsx'
 import MessagesBox from './MessagesBox.jsx'
 import InputMessage from './InputMessageForm.jsx'
+import {AddNewChannelButton }from './addNewChannelButton.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import add from '../img/add.png'
-
 
 const MainPage = () => {
     const currentChannelId = useSelector(state => state.curentChannel.id)
@@ -18,9 +17,8 @@ const MainPage = () => {
                 <div className='d-flex flex-column bg-light col-4 col-md-2 border-end px-0 h-100 '>
                     <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
                         <b>Каналы</b>
-                        <Button className='text-primary p-0 btn-light'>
-                            <img src={add}></img>
-                        </Button>
+                        <AddNewChannelButton />
+
                     </div>
                     <ChannelsBox />
                 </div>

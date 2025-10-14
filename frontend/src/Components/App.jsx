@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './LoginPage.jsx'
-import NotFound from './NotFound.jsx'
+import NotFound from './NotFoundPage.jsx'
 import MainPage from './MainPage.jsx'
 import { Button, Navbar, Nav, Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'

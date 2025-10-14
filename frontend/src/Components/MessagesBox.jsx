@@ -23,10 +23,10 @@ const MessagesBox = () => {
                 dispatch(setMessages({ entities: normDataMessages, ids: Object.keys(normDataMessages) }))
             }
            
-            const socket = io();
+            const socket = io()
             socket.on('newMessage', (playload) => {
                 dispatch(addMessage(playload))
-            });
+            })
         }
         fetchData()
     }, [])
