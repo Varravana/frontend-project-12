@@ -10,6 +10,7 @@ const InputMessage = () => {
     const currentUsername = localStorage.getItem('username')
     const currentChannelId = useSelector(state => state.curentChannel.id)
     const token = localStorage.getItem('token')
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -23,10 +24,9 @@ const InputMessage = () => {
                 },
             })
                 .then((response) => {
-                    if (response.data) {
+                    if (response.data) { 
 
-                        console.log('сообщение отправлено', response.data)
-
+                        console.log('сообщение отправлено инпут',response.data)
                     }
                 })
                 .catch((error) => {
