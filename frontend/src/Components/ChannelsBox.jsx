@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import getNormalized from '../utilities/getNormalizet.js'
-import { setChannels, addChannel } from '../slices/channelsSlice.js'
+import { setChannels, addChannel, deleteChannel, renameChannel } from '../slices/channelsSlice.js'
 import { Button, Nav } from 'react-bootstrap'
 import axios from 'axios'
 import ChannelButton from './ChannelsButtons.jsx'
@@ -32,6 +32,12 @@ const ChannelsBox = () => {
             socket.on('newChannel', (playload) => {
                 dispatch(addChannel(playload))
             })
+            socket.on('removeChannel', (playload) => {
+                dispatch(deleteChannel(playload))
+            })
+            socket.on('renameChannel', (playload) => {
+                dispatch(renameChannel(playload))
+            });
         }
         fetchData()
 
@@ -44,7 +50,7 @@ const ChannelsBox = () => {
         <Nav id='chanals-box' variant="pills" className="flex-column fill px-2 mb-3 h-100 overflow-auto d-block">
 
             {Object.values(channelsEntities).map((value) =>
-                <ChannelButton value={value} currentChannel={currentChannel}/>
+                <ChannelButton value={value} currentChannel={currentChannel} />
             )}
 
         </Nav>

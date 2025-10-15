@@ -17,9 +17,18 @@ const channelsSlice = createSlice({
     addChannel(state, {payload}) {
       state.ids.push(payload.id)
       state.entities[payload.id] = payload
+    },
+    deleteChannel (state, {payload}) {
+      state.ids.filter(id => id !== payload.id)
+      delete state.entities[payload.id]
+    },
+    renameChannel (state, {payload}) {
+      const id = payload.id
+      const newName = payload.name
+      state.entities[id].name = newName
     }
   },
 })
 
-export const { setChannels, addChannel } = channelsSlice.actions
+export const { setChannels, addChannel, deleteChannel, renameChannel } = channelsSlice.actions
 export default channelsSlice.reducer
