@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import _ from 'lodash'
 import * as yup from 'yup'
@@ -10,8 +10,10 @@ import { useFormik } from 'formik'
 const duplicateCheck = (value, allChannels) => {
     let channelsNames = []
     for (let key in allChannels) {
+
         channelsNames.push(allChannels[key].name)
     }
+    console.log(channelsNames)
     const result = _.includes(channelsNames, value)
     if (result === false) {
         return true
@@ -22,23 +24,20 @@ const duplicateCheck = (value, allChannels) => {
 }
 
 const RenameChannelModal = ({ value, show, modalHide }) => {
-
+    console.log(value || 'yps')
     const inputEl = useRef(null)
     const token = localStorage.getItem('token')
     const allChannels = useSelector(state => state.channels.entities)
-    const [errorName, setErrorName] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
-    const [oldChannelName, setOldChannelName] = useState('')
 
-    console.log(oldChannelName)
+
 
     useEffect(() => {
         if (value) {
-            setOldChannelName(value.value.name || '');
+            formik.setFieldValue('channelName', value.value.name);
         }
     }, [value])
-    
     // автофокус
+
     useEffect(() => {
         if (show && inputEl.current) {
             inputEl.current.focus()
@@ -60,37 +59,34 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
     // форма начальное значение и отправка на сервер
     const formik = useFormik({
         initialValues: {
-            channelName: oldChannelName
+            channelName: ''
         },
-        onSubmit: values => {
-            schema.validate(values, { abortEarly: false })
-                .then((values) => {
-                    setErrorName(false)
-                    setErrorMessage(null)
-                    const editedChannel = { name: values.channelName }
-                    const channelId = value.value.id
-                    axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
+        validationSchema: schema,
+        onSubmit: async values => {
+            try {
+                const editedChannel = { name: values.channelName }
+                const channelId = value.value.id
+                const response = await axios.patch(
+                    `/api/v1/channels/${channelId}`,
+                    editedChannel,
+                    {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
-                    }).then((response) => {
-                        console.log('изменено название канала', response.data); // => { id: '3', name: 'new channel', removable: true }
-                    });
-                    values.channelName = ''
-                    modalHide()
-                }
+                    }
                 )
-                .catch((error) => {
-                    setErrorName(true)
-                    setErrorMessage(error.errors[0])
-                })
+                console.log('изменено название канала', response.data)
+                formik.resetForm()
+                modalHide()
+            } catch (error) {
+                console.log(error)
+            }
         },
-    })
+    });
+
 
     const hideModal = () => {
-
-        setErrorName(false)
-        setErrorMessage('')
+        formik.resetForm()
         modalHide()
     }
 
@@ -111,10 +107,10 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
                             placeholder=''
                             onChange={formik.handleChange}
                             value={formik.values.channelName}
-                            isInvalid={errorName} />
-                        {errorName && (
+                            isInvalid={formik.touched.channelName && !!formik.errors.channelName} />
+                        {formik.touched.channelName && formik.errors.channelName && (
                             <Form.Control.Feedback type="invalid">
-                                {errorMessage}
+                                {formik.errors.channelName}
                             </Form.Control.Feedback>
                         )}
                     </Form.Group>
