@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
 import cat from '../img/cat.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -79,13 +79,13 @@ const LoginPage = () => {
                     </FloatingLabel>
 
 
-                    <Button variant="outline-primary" type="submit">Submit</Button>
+                    <Button variant="outline-primary" type="submit">Войти</Button>
                   </Form>
             </Card.Body>
             <Card.Footer>
               <div className='text-center'>
                 <span>Нет аккаунта? </span>
-                <a href=''>Регистрация</a>
+                <a href='/signup'>Регистрация</a>
               </div>
             </Card.Footer>
           </Card>
