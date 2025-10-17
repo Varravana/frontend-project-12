@@ -5,4 +5,5 @@
 https://frontend-project-12-1-rnx4.onrender.com
 
 ## Использовано
-Redux Toolkit для организации слайсок и хранилища
+Redux Toolkit для организации слайсов и хранилища
+react-i18next для Интернационализации

@@ -6,7 +6,7 @@ import SignupPage from './SignupPage.jsx'
 import ExitButton from './ExitButton.jsx'
 import { Button, Navbar, Nav, Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const ChatRoute = ({ children }) => {
@@ -18,14 +18,19 @@ const ChatRoute = ({ children }) => {
 }
 
 const App = () => {
-
+const loginToken = useSelector((state) => state.login.token) 
+const [exitButtonOn, setexitButtonOn]= useState(false)
+useEffect(()=> {
+console.log(loginToken)
+localStorage.getItem('token') ? setexitButtonOn(true) : setexitButtonOn(false)
+}, [loginToken])
 
   return (
     <div className='d-flex flex-column h-100 '>
       <Navbar bg="white" className='shadow-sm' expand="lg">
         <Container>
           <Navbar.Brand href="/">Varravana Chat</Navbar.Brand>
-          {localStorage.getItem('token') &&<ExitButton />}
+          {exitButtonOn &&<ExitButton />}
         </Container>
       </Navbar>
 

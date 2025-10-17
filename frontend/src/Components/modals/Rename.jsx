@@ -24,7 +24,6 @@ const duplicateCheck = (value, allChannels) => {
 }
 
 const RenameChannelModal = ({ value, show, modalHide }) => {
-    console.log(value || 'yps')
     const inputEl = useRef(null)
     const token = localStorage.getItem('token')
     const allChannels = useSelector(state => state.channels.entities)
