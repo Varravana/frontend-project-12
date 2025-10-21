@@ -5,12 +5,14 @@ import React from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import send from '../img/send.png'
+import { useTranslation } from 'react-i18next'
 
 const InputMessage = () => {
     const currentUsername = localStorage.getItem('username')
     const currentChannelId = useSelector(state => state.curentChannel.id)
     const token = localStorage.getItem('token')
     const dispatch = useDispatch()
+    const { t, i18n } = useTranslation()
 
     const formik = useFormik({
         initialValues: {
@@ -43,7 +45,7 @@ const InputMessage = () => {
                         className='border-0 p-0 ps-2'
                         name='body'
                         type="email"
-                        placeholder="Введите сообщение..."
+                        placeholder={t('inputMessageForm.placeholder')}
                         onChange={formik.handleChange}
                         value={formik.values.body} />
                     <Button variant="outline-secondary" type="submit">

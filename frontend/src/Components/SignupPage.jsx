@@ -7,25 +7,27 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import * as yup from 'yup'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const SignupPage = () => {
     const [serverError, setServerError] = useState(null)
-const navigate = useNavigate()
+    const navigate = useNavigate()
+    const { t, i18n } = useTranslation()
 
     const schema = yup.object().shape({
         username: yup
             .string()
-            .required('Обязательное поле')
-            .min(3, 'Минимум 3 символа')
-            .max(20, 'Максимум 20 символов'),
+            .required(`${t('signupPage.yup.required')}`)
+            .min(3, `${t('signupPage.yup.min3')}`)
+            .max(20, `${t('signupPage.yup.max20')}`),
         password: yup
             .string()
-            .required('Обязательное поле')
-            .min(6, 'Минимум 6 символов'),
+            .required(`${t('signupPage.yup.required')}`)
+            .min(6, `${t('signupPage.yup.min6')}`),
         confirmpassword: yup
             .string()
-            .required('Обязательное поле')
-            .test('password-match', 'Пароли должны совпадать', function (value) {
+            .required(`${t('signupPage.yup.required')}`)
+            .test('password-match', `${t('signupPage.yup.passwordMatch')}`, function (value) {
                 const password = this.parent.password;
                 return value === password;
             })
@@ -50,9 +52,9 @@ const navigate = useNavigate()
                 navigate('/', { replace: false })
             } catch (error) {
                 if (error.response && error.response.status === 409) {
-                    setServerError('Такой пользователь уже существует')
+                    setServerError(`${t('signupPage.serverError.userExists')}`)
                 } else {
-                    setServerError('Произошла ошибка при регистрации')
+                    setServerError(`${t('signupPage.serverError.errorRegistration')}`)
                 }
             }
         },
@@ -68,9 +70,9 @@ const navigate = useNavigate()
                                 <Image src={cat} />
                             </div>
                             <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
-                                <h1 className='text-center'>Регистрация</h1>
+                                <h1 className='text-center'>{t('signupPage.form.h1')}</h1>
 
-                                <FloatingLabel className="mb-3" controlId="floatingUsername" label="Имя пользователя">
+                                <FloatingLabel className="mb-3" controlId="floatingUsername" label={t('signupPage.form.labelName')}>
                                     <Form.Control
                                         type="text"
                                         placeholder="username!"
@@ -86,7 +88,7 @@ const navigate = useNavigate()
                                     )}
                                 </FloatingLabel>
 
-                                <FloatingLabel controlId="floatingPassword" label="Пароль" className='mb-4'>
+                                <FloatingLabel controlId="floatingPassword" label={t('signupPage.form.labelPassword')} className='mb-4'>
                                     <Form.Control
                                         type="password"
                                         placeholder="Password"
@@ -103,7 +105,7 @@ const navigate = useNavigate()
                                     )}
                                 </FloatingLabel>
 
-                                <FloatingLabel className="mb-3" controlId="floatingConfirmPassword" label="Подтвердите пароль">
+                                <FloatingLabel className="mb-3" controlId="floatingConfirmPassword" label={t('signupPage.form.labelPasswordConfirm')}>
                                     <Form.Control
                                         type="password"
                                         placeholder="ConfirmPassword"
@@ -119,13 +121,13 @@ const navigate = useNavigate()
                                     )}
                                 </FloatingLabel>
 
-                                    {serverError && (
-                                        <Alert variant="danger" className='mb-4'>
-                                            {serverError}
-                                        </Alert>
-                                    )}
+                                {serverError && (
+                                    <Alert variant="danger" className='mb-4'>
+                                        {serverError}
+                                    </Alert>
+                                )}
 
-                                <Button variant="outline-primary" type="submit">Зарегистрироваться</Button>
+                                <Button variant="outline-primary" type="submit">{t('signupPage.form.submitButton')}</Button>
                             </Form>
                         </Card.Body>
                     </Card>

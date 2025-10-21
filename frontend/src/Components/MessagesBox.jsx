@@ -10,7 +10,7 @@ import { io } from 'socket.io-client'
 const MessagesBox = () => {
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
-
+    
     useEffect(() => {
         const fetchData = async () => {
             const responseMessages = await axios.get('/api/v1/messages', {

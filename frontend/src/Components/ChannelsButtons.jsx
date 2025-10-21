@@ -5,9 +5,11 @@ import DeleteChannelModal from './modals/Delete.jsx'
 import RenameChannelModal from './modals/Rename.jsx'
 import { useImmer } from 'use-immer'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const ChannelButton = ({ value, currentChannel }) => {
     const dispatch = useDispatch()
+    const { t, i18n } = useTranslation()
 
     const [curentModal, setCurModal] = useImmer({
         remove: false,
@@ -56,8 +58,8 @@ const ChannelButton = ({ value, currentChannel }) => {
                             className={currentChannel === value.id ? 'btn-secondary' : 'btn-light'}
                             id="dropdown-split-basic" />
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => handleRemoveShow({ value })}>Удалить</Dropdown.Item>
-                            <Dropdown.Item onClick={() => handleRenameShow({ value })}>Переименовать</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleRemoveShow({ value })}>{t('channelsButtons.delete')}</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleRenameShow({ value })}>{t('channelsButtons.rename')}</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                     :

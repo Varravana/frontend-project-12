@@ -16,19 +16,24 @@ export default {
             labelPassword: 'Пароль',
             error: 'Неверные пароль или логин',
             submitButton: 'Войти',
-            noAkk: 'Нет аккаунта?',
+            noAkk: 'Нет аккаунта? ',
             registration: 'Регистрация'
         },
         mainPage: {
             channelsHead: 'Каналы',
-            messageCount: 'сообщений'
+            messageCount: {
+                'key_one': "{{count}} сообщение",
+                'key_few': "{{count}} сообщения",
+                'key_many': "{{count}} сообщений",
+                'key_other': "{{count}} сообщений"
+            }
         },
         notFoundPage: {
             h3: 'Страница не найдена',
             span: 'Но вы можете перейти ',
             href: 'на главную страницу'
         },
-        SignupPage: {
+        signupPage: {
             yup: {
                 required: 'Обязательное поле',
                 min3: 'Минимум 3 символа',
@@ -48,7 +53,5 @@ export default {
                 submitButton: 'Зарегистрироваться'
             }
         }
-
-
     },
 }

@@ -10,6 +10,7 @@ i18next
         interpolation: {
             escapeValue: false, // экранирование уже есть в React, поэтому отключаем
         },
-    });
+        debug: true,
+    })
 
-export default i18next;
+export default i18next

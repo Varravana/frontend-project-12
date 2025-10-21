@@ -8,11 +8,13 @@ import cat from '../img/cat.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../slices/loginSlice.js'
+import { useTranslation } from 'react-i18next'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation()
 
   const formik = useFormik({
     initialValues: {
@@ -47,9 +49,9 @@ const LoginPage = () => {
                   <Image src={cat} />
                 </div>
                   <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit} >
-                    <h1 className='text-center'>Войти</h1>
+                    <h1 className='text-center'>{t('loginPage.h1')}</h1>
 
-                    <FloatingLabel className="mb-3" controlId="floatingUsername" label="Ваш ник">
+                    <FloatingLabel className="mb-3" controlId="floatingUsername" label={t('loginPage.labelName')}>
                       <Form.Control
                         type="text"
                         placeholder="username!"
@@ -60,7 +62,7 @@ const LoginPage = () => {
                       />
                     </FloatingLabel>
 
-                    <FloatingLabel controlId="floatingPassword" label="Пароль" className='mb-4'>
+                    <FloatingLabel controlId="floatingPassword" label={t('loginPage.labelPassword')} className='mb-4'>
                       <Form.Control
                         type="password"
                         placeholder="Password"
@@ -73,19 +75,19 @@ const LoginPage = () => {
 
                       {errorLogin && (
                         <Form.Control.Feedback type="invalid">
-                          Неверные пароль или логин
+                          {t('loginPage.error')}
                         </Form.Control.Feedback>
                       )}
                     </FloatingLabel>
 
 
-                    <Button variant="outline-primary" type="submit">Войти</Button>
+                    <Button variant="outline-primary" type="submit">{t('loginPage.submitButton')}</Button>
                   </Form>
             </Card.Body>
             <Card.Footer>
               <div className='text-center'>
-                <span>Нет аккаунта? </span>
-                <a href='/signup'>Регистрация</a>
+                <span>{t('loginPage.noAkk')}</span>
+                <a href='/signup'>{t('loginPage.registration')}</a>
               </div>
             </Card.Footer>
           </Card>
