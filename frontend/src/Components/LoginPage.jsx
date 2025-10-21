@@ -16,7 +16,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
-  const notify = () => toast(`${t('toast.errors.netError')}`)
+  const notify = () => toast.error(`${t('toast.errors.netError')}`)
 
   const formik = useFormik({
     initialValues: {

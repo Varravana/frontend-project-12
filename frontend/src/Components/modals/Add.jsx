@@ -8,6 +8,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
+import filter from 'leo-profanity'
 
 
 const duplicateCheck = (value, allChannels) => {
@@ -52,7 +53,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
             }),
     })
     //уведомления
-    const notifyAdd = () => toast(`${t('toast.channels.makeChannel')}`)
+    const notifyAdd = () => toast.success(`${t('toast.channels.makeChannel')}`)
 
     // форма начальное значение и отправка на сервер
     const formik = useFormik({
@@ -64,7 +65,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
                 .then((values) => {
                     setErrorName(false)
                     setErrorMessage(null)
-                    const newChannel = { name: values.channelName }
+                    const newChannel = { name: filter.clean(values.channelName) }
                     axios.post('/api/v1/channels', newChannel, {
                         headers: {
                             Authorization: `Bearer ${token}`,

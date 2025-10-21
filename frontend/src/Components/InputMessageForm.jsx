@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import send from '../img/send.png'
 import { useTranslation } from 'react-i18next'
+import filter from 'leo-profanity'
 
 const InputMessage = () => {
     const currentUsername = localStorage.getItem('username')
@@ -19,16 +20,16 @@ const InputMessage = () => {
             body: '',
         },
         onSubmit: values => {
-            const newMessage = { body: values.body, channelId: currentChannelId, username: currentUsername }
+            const newMessage = { body: filter.clean(values.body), channelId: currentChannelId, username: currentUsername }
             axios.post('/api/v1/messages', newMessage, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
                 .then((response) => {
-                    if (response.data) { 
+                    if (response.data) {
 
-                        console.log('сообщение отправлено инпут',response.data)
+                        console.log('сообщение отправлено инпут', response.data)
                     }
                 })
                 .catch((error) => {

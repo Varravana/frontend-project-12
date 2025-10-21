@@ -14,7 +14,7 @@ const SignupPage = () => {
     const [serverError, setServerError] = useState(null)
     const navigate = useNavigate()
     const { t, i18n } = useTranslation()
-    const notify = () => toast(`${t('toast.errors.netError')}`)
+    const notify = () => toast.error(`${t('toast.errors.netError')}`)
 
     const schema = yup.object().shape({
         username: yup

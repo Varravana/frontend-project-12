@@ -8,6 +8,7 @@ import { Button, Navbar, Nav, Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import filter from 'leo-profanity'
 
 
 const ChatRoute = ({ children }) => {
@@ -21,6 +22,8 @@ const ChatRoute = ({ children }) => {
 const App = () => {
 const loginToken = useSelector((state) => state.login.token) 
 const [exitButtonOn, setexitButtonOn]= useState(false)
+filter.add(filter.getDictionary('ru'))
+
 useEffect(()=> {
 console.log(loginToken)
 localStorage.getItem('token') ? setexitButtonOn(true) : setexitButtonOn(false)

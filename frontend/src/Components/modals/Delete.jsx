@@ -10,7 +10,7 @@ const token = localStorage.getItem('token')
 const { t, i18n } = useTranslation()
 
     //уведомления
-    const notifyDelete = () => toast(`${t('toast.channels.deleteChannel')}`)
+    const notifyDelete = () => toast.success(`${t('toast.channels.deleteChannel')}`)
 
     const handleDeleteChannel = (value) => {
         const id = value.value.id

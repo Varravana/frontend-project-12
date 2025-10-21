@@ -8,6 +8,7 @@ import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
+import filter from 'leo-profanity'
 
 const duplicateCheck = (value, allChannels) => {
     let channelsNames = []
@@ -32,7 +33,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
     const { t, i18n } = useTranslation()
 
     //уведомления
-    const notifyRename = () => toast(`${t('toast.channels.renameChannel')}`)
+    const notifyRename = () => toast.success(`${t('toast.channels.renameChannel')}`)
 
     useEffect(() => {
         if (value) {
@@ -67,7 +68,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
         validationSchema: schema,
         onSubmit: async values => {
             try {
-                const editedChannel = { name: values.channelName }
+                const editedChannel = { name: filter.clean(values.channelName) }
                 const channelId = value.value.id
                 const response = await axios.patch(
                     `/api/v1/channels/${channelId}`,
