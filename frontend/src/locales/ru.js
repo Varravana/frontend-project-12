@@ -52,6 +52,42 @@ export default {
                 labelPasswordConfirm: 'Подтвердите пароль',
                 submitButton: 'Зарегистрироваться'
             }
+        },
+        toast: {
+            channels: {
+                makeChannel: 'Канал создан',
+                deleteChannel: 'Канал удалён',
+                renameChannel: 'Канал переименован',
+            },
+            errors: {
+                loadChannelsError: 'Ошибка загрузки каналов',
+                loadMessagesError: 'Ошибка загрузки сообщений',
+                netError: 'Ошибка соединения'
+            }
+        },
+        modals: {
+            yup: {
+                required: 'Обязательное поле',
+                min3: 'Минимум 3 символа',
+                max20: 'Максимум 20 символов',
+                unique: 'Должно быть уникальным',
+            },
+            modalAdd: {
+                title: 'Добавить канал',
+                submitButton: 'Отправить',
+                canselButton: 'Отменить'
+            },
+            modalDelete: {
+                title: 'Удалить канал',
+                body: 'Уверены?',
+                submitButton: 'Удалить',
+                canselButton: 'Отменить'
+            },
+            modalRename: {
+                title: 'Переименовать канал',
+                submitButton: 'Отправить',
+                canselButton: 'Отменить'
+            }
         }
     },
 }

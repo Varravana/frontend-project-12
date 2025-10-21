@@ -6,6 +6,8 @@ import axios from 'axios'
 import _ from 'lodash'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
+import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
 
 const duplicateCheck = (value, allChannels) => {
     let channelsNames = []
@@ -27,8 +29,10 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
     const inputEl = useRef(null)
     const token = localStorage.getItem('token')
     const allChannels = useSelector(state => state.channels.entities)
+    const { t, i18n } = useTranslation()
 
-
+    //уведомления
+    const notifyRename = () => toast(`${t('toast.channels.renameChannel')}`)
 
     useEffect(() => {
         if (value) {
@@ -47,10 +51,10 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
     const schema = yup.object().shape({
         channelName: yup
             .string()
-            .required('Обязательное поле')
-            .min(3, 'Минимум 3 символа')
-            .max(20, 'Максимум 20 символов')
-            .test('unique', 'Должно быть уникальным', (value) => {
+            .required(`${t('modals.yup.required')}`)
+            .min(3, `${t('modals.yup.min3')}`)
+            .max(20, `${t('modals.yup.max20')}`)
+            .test('unique', `${t('modals.yup.unique')}`, (value) => {
                 return duplicateCheck(value, allChannels)
             }),
     })
@@ -76,6 +80,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
                 )
                 console.log('изменено название канала', response.data)
                 formik.resetForm()
+                notifyRename()
                 modalHide()
             } catch (error) {
                 console.log(error)
@@ -93,7 +98,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
     return (
         <Modal show={show} onHide={hideModal}>
             <Modal.Header closeButton >
-                <Modal.Title>Переименовать канал</Modal.Title>
+                <Modal.Title>{t('modals.modalRename.title')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit} >
@@ -115,8 +120,8 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
                     </Form.Group>
 
                     <div className='d-flex justify-content-end'>
-                        <Button variant="secondary" className='me-2' onClick={hideModal}>Отменить</Button>
-                        <Button type="submit" className='btn-primary'>Отправить</Button>
+                        <Button variant="secondary" className='me-2' onClick={hideModal}>{t('modals.modalRename.canselButton')}</Button>
+                        <Button type="submit" className='btn-primary'>{t('modals.modalRename.submitButton')}</Button>
                     </div>
 
                 </Form>

@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 import * as yup from 'yup'
 import axios from 'axios'
 import _ from 'lodash'
+import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
 
 
 const duplicateCheck = (value, allChannels) => {
@@ -29,6 +31,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
     const allChannels = useSelector(state => state.channels.entities)
     const [errorName, setErrorName] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const { t, i18n } = useTranslation()
 
     // автофокус
     useEffect(() => {
@@ -41,13 +44,15 @@ const AddNewChannelModal = ({ show, modalHide }) => {
     const schema = yup.object().shape({
         channelName: yup
             .string()
-            .required('Обязательное поле')
-            .min(3, 'Минимум 3 символа')
-            .max(20, 'Максимум 20 символов')
-            .test('unique', 'Должно быть уникальным', (value) => {
+            .required(`${t('modals.yup.required')}`)
+            .min(3, `${t('modals.yup.min3')}`)
+            .max(20, `${t('modals.yup.max20')}`)
+            .test('unique', `${t('modals.yup.unique')}`, (value) => {
                 return duplicateCheck(value, allChannels)
             }),
     })
+    //уведомления
+    const notifyAdd = () => toast(`${t('toast.channels.makeChannel')}`)
 
     // форма начальное значение и отправка на сервер
     const formik = useFormik({
@@ -65,6 +70,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
                             Authorization: `Bearer ${token}`,
                         },
                     }).then((response) => {
+                        notifyAdd()
                         console.log('добавлен новый канал', response.data); // => { id: '3', name: 'new channel', removable: true }
                     });
                     values.channelName = ''
@@ -87,9 +93,10 @@ const AddNewChannelModal = ({ show, modalHide }) => {
 
 
     return (
+
         <Modal show={show} onHide={hideModal}>
             <Modal.Header closeButton >
-                <Modal.Title>Добавить канал</Modal.Title>
+                <Modal.Title>{t('modals.modalAdd.title')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit} >
@@ -111,13 +118,14 @@ const AddNewChannelModal = ({ show, modalHide }) => {
                     </Form.Group>
 
                     <div className='d-flex justify-content-end'>
-                        <Button variant="secondary" className='me-2' onClick={hideModal}>Отменить</Button>
-                        <Button type="submit" className='btn-primary'>Отправить</Button>
+                        <Button variant="secondary" className='me-2' onClick={hideModal}>{t('modals.modalAdd.canselButton')}</Button>
+                        <Button type="submit" className='btn-primary'>{t('modals.modalAdd.submitButton')}</Button>
                     </div>
 
                 </Form>
             </Modal.Body>
         </Modal>
+
     )
 }
 

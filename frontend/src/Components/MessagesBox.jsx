@@ -6,23 +6,30 @@ import { Button, Nav } from 'react-bootstrap'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { io } from 'socket.io-client'
+import { ToastContainer, toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 const MessagesBox = () => {
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
-    
+    const { t, i18n } = useTranslation()
+    const notify = () => toast(`${t('toast.errors.loadMessagesError')}`)
+
     useEffect(() => {
         const fetchData = async () => {
-            const responseMessages = await axios.get('/api/v1/messages', {
+            await axios.get('/api/v1/messages', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-            })
-            if (responseMessages.data) { //[{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
-                const normDataMessages = getNormalized(responseMessages.data)
+            }).then((response) => {
+                const normDataMessages = getNormalized(response.data)
                 dispatch(setMessages({ entities: normDataMessages, ids: Object.keys(normDataMessages) }))
-            }
-           
+            }).catch((error) => {
+                console.log('ошибка загрузки сообщений', error)
+                notify()
+            })
+
+
             const socket = io()
             socket.on('newMessage', (playload) => {
                 dispatch(addMessage(playload))

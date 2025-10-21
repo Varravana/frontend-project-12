@@ -7,11 +7,15 @@ import axios from 'axios'
 import ChannelButton from './ChannelsButtons.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { io } from 'socket.io-client'
+import { ToastContainer, toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 
 const ChannelsBox = () => {
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
+    const { t, i18n } = useTranslation()
+    const notifyE = () => toast(`${t('toast.errors.loadChannelsError')}`)
 
 
     useEffect(() => {
@@ -26,6 +30,7 @@ const ChannelsBox = () => {
                 dispatch(setChannels({ entities: normDataChannels, ids: Object.keys(normDataChannels) }))
             }).catch((error) => {
                 console.log('ошибка загрузки каналов', error)
+                notifyE()
             })
 
             const socket = io()

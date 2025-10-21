@@ -7,6 +7,7 @@ import ExitButton from './ExitButton.jsx'
 import { Button, Navbar, Nav, Container } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 
 const ChatRoute = ({ children }) => {
@@ -47,7 +48,7 @@ localStorage.getItem('token') ? setexitButtonOn(true) : setexitButtonOn(false)
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-
+<ToastContainer />
     </div>
   )
 }
