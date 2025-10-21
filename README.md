@@ -1,6 +1,21 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Varravana/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Varravana/frontend-project-12/actions)
 
+# Учебный проект №4 "Чат (Slack)" в программе "Фронтэнд-разработчик"
+Дипломный проект, представляющий из себя упрощенную версию Slack-чата. Проект демонстрирует реализацию следующих задач: работа с веб-сокетами, взаимодействие с REST API, использование React (с хуками), Redux (через reduxjs/toolkit), организация роутинга на клиенте, авторизация и аутентификация и, конечно же, сборка (vite) и деплой.
+
+## Setup
+
+```bash
+make install
+```
+
+## Development
+
+```bash
+make develop
+```
+
 ### Render
 https://frontend-project-12-1-rnx4.onrender.com
 
