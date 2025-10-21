@@ -1,6 +1,6 @@
 import App from './Components/App.jsx'
 import ReactDOM from 'react-dom/client'
-//import { Provider } from 'react-redux'
+import {Provider as ReduxProvider} from 'react-redux'
 import store from './slices/index.js'
 import React from 'react'
 import { I18nextProvider } from 'react-i18next'
@@ -15,16 +15,13 @@ const rollbarConfig = {
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-    <Provider store={store} config={rollbarConfig}>
-        <ErrorBoundary>
-
-
-   
+    <ReduxProvider store={store}>
+        <Provider config={rollbarConfig}>
+            <ErrorBoundary>
                 <I18nextProvider i18n={i18n}>
                     <App />
                 </I18nextProvider>
-
-
-        </ErrorBoundary>
-    </Provider>
+            </ErrorBoundary>
+        </Provider>
+    </ReduxProvider>
 )
