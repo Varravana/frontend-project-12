@@ -1,11 +1,11 @@
 import App from './Components/App.jsx'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
+//import { Provider } from 'react-redux'
 import store from './slices/index.js'
 import React from 'react'
 import { I18nextProvider } from 'react-i18next'
 import i18n from './i18next.js'
-import { ErrorBoundary } from '@rollbar/react'
+import { Provider, ErrorBoundary } from '@rollbar/react'
 
 
 const rollbarConfig = {
