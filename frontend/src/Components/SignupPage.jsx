@@ -8,11 +8,13 @@ import * as yup from 'yup'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
 
 const SignupPage = () => {
     const [serverError, setServerError] = useState(null)
     const navigate = useNavigate()
     const { t, i18n } = useTranslation()
+    const notify = () => toast(`${t('toast.errors.netError')}`)
 
     const schema = yup.object().shape({
         username: yup
@@ -54,6 +56,7 @@ const SignupPage = () => {
                 if (error.response && error.response.status === 409) {
                     setServerError(`${t('signupPage.serverError.userExists')}`)
                 } else {
+                    notify()
                     setServerError(`${t('signupPage.serverError.errorRegistration')}`)
                 }
             }

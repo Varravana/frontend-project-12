@@ -9,12 +9,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../slices/loginSlice.js'
 import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
+  const notify = () => toast(`${t('toast.errors.netError')}`)
 
   const formik = useFormik({
     initialValues: {
@@ -34,6 +36,7 @@ const LoginPage = () => {
         })
         .catch((error) => {
           setErrorLogin(true)
+          notify()
           console.log(error)
         })
     },
