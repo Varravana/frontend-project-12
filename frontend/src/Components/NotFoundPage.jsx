@@ -1,5 +1,6 @@
 import notF from '../img/404.png'
 import { Container, Col, Image } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { useTranslation } from 'react-i18next'
 
 const NotFound = () => {
@@ -13,7 +14,7 @@ const NotFound = () => {
               </div>
               <div className='text-center'>
                 <span>{t('notFoundPage.span')}</span>
-                <a href=''>{t('notFoundPage.href')}</a>
+                <a href='/'>{t('notFoundPage.href')}</a>
               </div>
 </Col>
 </Container>
