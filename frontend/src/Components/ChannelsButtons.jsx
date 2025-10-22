@@ -1,5 +1,5 @@
 import { Button, Nav, ButtonGroup, Dropdown } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setcurentChannel } from '../slices/curentChannelSlice.js'
 import DeleteChannelModal from './modals/Delete.jsx'
 import RenameChannelModal from './modals/Rename.jsx'

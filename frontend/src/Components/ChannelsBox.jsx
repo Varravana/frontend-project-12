@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import getNormalized from '../utilities/getNormalizet.js'
 import { setChannels, addChannel, deleteChannel, renameChannel } from '../slices/channelsSlice.js'
-import { Button, Nav } from 'react-bootstrap'
+import { Nav } from 'react-bootstrap'
 import axios from 'axios'
 import ChannelButton from './ChannelsButtons.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { io } from 'socket.io-client'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 
 

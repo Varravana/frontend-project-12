@@ -1,6 +1,5 @@
-import { Button, Nav, Form, Container, Row, Col, InputGroup, Image, Card, FloatingLabel } from 'react-bootstrap'
-import { useEffect, useRef, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { Container, Row } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import ChannelsBox from './ChannelsBox.jsx'
 import MessagesBox from './MessagesBox.jsx'
 import InputMessage from './InputMessageForm.jsx'

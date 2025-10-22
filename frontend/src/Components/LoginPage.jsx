@@ -1,15 +1,15 @@
 import React from 'react'
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useFormik } from 'formik'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Form, Container, Row, Col, Image, Card, FloatingLabel } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { Button, Form, Container, Row, Image, Card, FloatingLabel } from 'react-bootstrap'
 import cat from '../img/cat.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../slices/loginSlice.js'
 import { useTranslation } from 'react-i18next'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const LoginPage = () => {
   const [errorLogin, setErrorLogin] = useState(false)

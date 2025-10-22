@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const SignupPage = () => {
     const [serverError, setServerError] = useState(null)
