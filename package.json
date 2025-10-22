@@ -20,6 +20,7 @@
     "start": "start-server -s ./frontend/dist"
   },
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4"
+    "@hexlet/chat-server": "^2.0.4",
+    "use-immer": "^0.11.0"
   }
 }
