@@ -7,6 +7,7 @@ import { AddNewChannelButton } from './addNewChannelButton.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useTranslation } from 'react-i18next'
 
+
 const MainPage = () => {
     const { t, i18n } = useTranslation()
     const currentChannelId = useSelector(state => state.curentChannel.id)
