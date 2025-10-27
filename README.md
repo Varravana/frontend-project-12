@@ -9,14 +9,19 @@
 ```bash
 make install
 ```
-
-## Development
+## Build
 
 ```bash
-make develop
+make build
+```
+## Start
+
+```bash
+make start
 ```
 
-### Render
+
+### Проект опубликован на портале Render. Посмотреть проект можно по ссылке:
 https://frontend-project-12-1-rnx4.onrender.com
 
 ## В работе над проектом были использованы:

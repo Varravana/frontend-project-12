@@ -28,7 +28,7 @@ const InputMessage = () => {
             })
                 .then((response) => {
                     if (response.data) {
-
+formik.resetForm()
                         console.log('сообщение отправлено инпут', response.data)
                     }
                 })
