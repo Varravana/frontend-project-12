@@ -14,7 +14,7 @@ export default {
             h1: 'Войти',
             labelName: 'Ваш ник',
             labelPassword: 'Пароль',
-            error: 'Неверные пароль или логин',
+            error: 'Неверные имя пользователя или пароль',
             submitButton: 'Войти',
             noAkk: 'Нет аккаунта? ',
             registration: 'Регистрация'
