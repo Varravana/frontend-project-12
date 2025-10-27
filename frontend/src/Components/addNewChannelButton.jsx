@@ -21,6 +21,7 @@ const AddNewChannelButton = () => {
         <>
         <Button className='text-primary p-0 btn-light' onClick={() => handleAddShow()}>
             <img src={add}></img>
+            <span className='visually-hidden'>+</span>
         </Button>
         <AddNewChannelModal show={modalShow} modalHide={() => handleAddClose()} />
         </>
