@@ -5,7 +5,6 @@ import { useState } from 'react'
 import add from '../img/add.png'
 import AddNewChannelModal  from './modals/Add.jsx'
 
-
 const AddNewChannelButton = () => {
   const [modalShow, setModalShow] = useState (false)
 
