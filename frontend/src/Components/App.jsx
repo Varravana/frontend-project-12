@@ -33,7 +33,7 @@ localStorage.getItem('token') ? setexitButtonOn(true) : setexitButtonOn(false)
     <div className='d-flex flex-column h-100 '>
       <Navbar bg="white" className='shadow-sm' expand="lg">
         <Container>
-          <Navbar.Brand href="/">Varravana Chat</Navbar.Brand>
+          <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
           {exitButtonOn &&<ExitButton />}
         </Container>
       </Navbar>
