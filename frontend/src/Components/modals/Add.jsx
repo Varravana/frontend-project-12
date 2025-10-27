@@ -111,6 +111,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
                             onChange={formik.handleChange}
                             value={formik.values.channelName}
                             isInvalid={errorName} />
+                             <Form.Label className='visually-hidden'>Имя канала</Form.Label>
                         {errorName && (
                             <Form.Control.Feedback type="invalid">
                                 {errorMessage}
