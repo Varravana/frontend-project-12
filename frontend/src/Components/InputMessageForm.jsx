@@ -45,6 +45,7 @@ formik.resetForm()
                     <Form.Control
                         className='border-0 p-0 ps-2'
                         name='body'
+                        aria-label='Новое сообщение'
                         type="email"
                         placeholder={t('inputMessageForm.placeholder')}
                         onChange={formik.handleChange}
