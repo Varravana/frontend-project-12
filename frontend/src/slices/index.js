@@ -4,13 +4,13 @@ import channelsReducer from './channelsSlice.js'
 import messagesReducer from './messagesSlice.js'
 import curentChannelReduser from './curentChannelSlice.js'
 
-//общее хранилище сюда все редьюсеры
+// общее хранилище сюда все редьюсеры
 
 export default configureStore({
   reducer: {
-    'login': loginReducer,
-    'channels': channelsReducer,
-    'messages': messagesReducer ,
-    'curentChannel': curentChannelReduser
+    login: loginReducer,
+    channels: channelsReducer,
+    messages: messagesReducer,
+    curentChannel: curentChannelReduser,
   },
-});
+})

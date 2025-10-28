@@ -10,9 +10,9 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     setMessages(state, { payload }) {
-      const { entities, ids } = payload;
-      state.entities = entities;
-      state.ids = ids;
+      const { entities, ids } = payload
+      state.entities = entities
+      state.ids = ids
     },
     addMessage(state, { payload }) {
       state.ids.push(payload.id)

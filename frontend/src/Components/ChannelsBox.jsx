@@ -50,7 +50,7 @@ const ChannelsBox = () => {
   return (
     <Nav id="chanals-box" variant="pills" className="flex-column fill px-2 mb-3 h-100 overflow-auto d-block">
       {Object.values(channelsEntities).map((value, index) =>
-        <ChannelButton key={index} value={value} currentChannel={currentChannel} />
+        <ChannelButton key={index} value={value} currentChannel={currentChannel} />,
       )}
     </Nav>
   )
