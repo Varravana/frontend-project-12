@@ -1,5 +1,5 @@
 import { Modal, Form, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector,  useDispatch } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
@@ -9,6 +9,7 @@ import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
 import filter from 'leo-profanity'
+import { setcurentChannel } from '../../slices/curentChannelSlice.js'
 
 
 const duplicateCheck = (value, allChannels) => {
@@ -33,6 +34,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
     const [errorName, setErrorName] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const { t, i18n } = useTranslation()
+    const dispatch = useDispatch()
 
     // автофокус
     useEffect(() => {
@@ -72,6 +74,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
                         },
                     }).then((response) => {
                         notifyAdd()
+                        dispatch(setcurentChannel({ id: response.data.id }))
                         console.log('добавлен новый канал', response.data); // => { id: '3', name: 'new channel', removable: true }
                     });
                     values.channelName = ''
