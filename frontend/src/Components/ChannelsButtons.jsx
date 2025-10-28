@@ -56,7 +56,16 @@ const ChannelButton = ({ value, currentChannel }) => {
                         </Button>
                         <Dropdown.Toggle split
                             className={currentChannel === value.id ? 'btn-secondary' : 'btn-light'}
-                            id="dropdown-split-basic" />
+                            id="dropdown-split-basic" >
+                        <span
+                            className="position-absolute top-50 start-50 translate-middle"
+                            style={{
+                                color: 'rgba(0, 0, 0, 0)',
+                                fontSize: '18px',
+                                fontWeight: 'bold',
+                                pointerEvents: 'none'
+                            }}>Управление каналом</span>
+                            </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item onClick={() => handleRemoveShow({ value })}>{t('channelsButtons.delete')}</Dropdown.Item>
                             <Dropdown.Item onClick={() => handleRenameShow({ value })}>{t('channelsButtons.rename')}</Dropdown.Item>
