@@ -113,6 +113,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
                             onChange={formik.handleChange}
                             value={formik.values.channelName}
                             isInvalid={formik.touched.channelName && !!formik.errors.channelName} />
+                            <Form.Label className='visually-hidden'>Имя канала</Form.Label>
                         {formik.touched.channelName && formik.errors.channelName && (
                             <Form.Control.Feedback type="invalid">
                                 {formik.errors.channelName}
