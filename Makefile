@@ -1,10 +1,10 @@
 build:
 	npm run build
 frontend-install:
-	make -C frontend install
+	npm ci --prefix frontend
 root-install:
-	npm install
+	npm ci
 install:
-	make frontend-install & make root-install
+	make frontend-install && make root-install
 start:
 	npm start
