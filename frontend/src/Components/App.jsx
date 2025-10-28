@@ -19,7 +19,7 @@ const ChatRoute = ({ children }) => {
 }
 
 const App = () => {
-  const loginToken = useSelector((state) => state.login.token)
+  const loginToken = useSelector(state => state.login.token)
   const [exitButtonOn, setexitButtonOn] = useState(false)
   filter.add(filter.getDictionary('ru'))
 
@@ -29,8 +29,8 @@ const App = () => {
   }, [loginToken])
 
   return (
-    <div className='d-flex flex-column h-100'>
-      <Navbar bg='white' className='shadow-sm' expand='lg'>
+    <div className="d-flex flex-column h-100">
+      <Navbar bg="white" className="shadow-sm" expand="lg">
         <Container>
           <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
           {exitButtonOn && <ExitButton />}
