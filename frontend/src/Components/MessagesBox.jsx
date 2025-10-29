@@ -48,7 +48,7 @@ const MessagesBox = () => {
           <b>
             {message.username}
           </b>
-          {": "}
+          {': '}
           {message.body}
         </div>
       ))}
