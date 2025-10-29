@@ -44,7 +44,8 @@ const ChannelButton = ({ value, currentChannel }) => {
   return (
     <>
       <Nav.Item className="w-100">
-        {value.removable ?
+        {value.removable
+          ?
         (
           <Dropdown as={ButtonGroup} className="d-flex">
             <Button
@@ -76,7 +77,7 @@ const ChannelButton = ({ value, currentChannel }) => {
               <Dropdown.Item onClick={() => handleRenameShow({ value })}>{t('channelsButtons.rename')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        ):(
+        ) : (
               <Button
                 className={currentChannel === value.id ? 'w-100 rounded-0 text-start btn-secondary text-truncate' : 'w-100 rounded-0 text-start btn-light text-truncate'}
                 onClick={() => dispatch(setcurentChannel({ id: value.id }))}
