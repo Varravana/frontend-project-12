@@ -33,10 +33,10 @@ const DeleteChannelModal = ({ value, show, modalHide }) => {
         <p>{t('modals.modalDelete.body')}</p>
 
         <div className="d-flex justify-content-end">
-          <Button variant="secondary" className="me-2" onClick={modalHide}>{t("modals.modalDelete.canselButton")}</Button>
-          <Button type="submit" className="btn-danger" onClick={() => handleDeleteChannel(value)}>{t("modals.modalDelete.submitButton")}</Button>
+          <Button variant="secondary" className="me-2" onClick={modalHide}>{t('modals.modalDelete.canselButton')}</Button>
+          <Button type="submit" className="btn-danger" onClick={() => handleDeleteChannel(value)}>{t('modals.modalDelete.submitButton')}</Button>
         </div>
-       </Modal.Body>
+      </Modal.Body>
     </Modal>
   )
 }

@@ -121,8 +121,8 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
           </Form.Group>
 
           <div className="d-flex justify-content-end">
-            <Button variant="secondary" className="me-2" onClick={hideModal}>{t("modals.modalRename.canselButton")}</Button>
-            <Button type="submit" className="btn-primary">{t("modals.modalRename.submitButton")}</Button>
+            <Button variant="secondary" className="me-2" onClick={hideModal}>{t('modals.modalRename.canselButton')}</Button>
+            <Button type="submit" className="btn-primary">{t('modals.modalRename.submitButton')}</Button>
           </div>
 
         </Form>

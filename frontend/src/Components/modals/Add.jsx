@@ -96,7 +96,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
   return (
 
     <Modal show={show} onHide={hideModal}>
-      <Modal.Header closeButton >
+      <Modal.Header closeButton>
         <Modal.Title>{t('modals.modalAdd.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -121,8 +121,8 @@ const AddNewChannelModal = ({ show, modalHide }) => {
           </Form.Group>
 
           <div className="d-flex justify-content-end">
-            <Button variant="secondary" className="me-2" onClick={hideModal}>{t("modals.modalAdd.canselButton")}</Button>
-            <Button type="submit" className="btn-primary">{t("modals.modalAdd.submitButton")}</Button>
+            <Button variant="secondary" className="me-2" onClick={hideModal}>{t('modals.modalAdd.canselButton')}</Button>
+            <Button type="submit" className="btn-primary">{t('modals.modalAdd.submitButton')}</Button>
           </div>
 
         </Form>
