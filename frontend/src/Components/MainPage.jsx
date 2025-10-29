@@ -29,11 +29,12 @@ const MainPage = () => {
           <div className="d-flex flex-column h-100">
             <div className="bg-ligth mb-4 p-3 shadow-sm small">
               <p className="m-0">
-            <b>
-              # 
-              {currentChannel.name}</b>
-          </p>
-          <span className="text-muted">{t('mainPage.messageCount.key', { count: messCount })}</span>
+              <b>
+              #
+                  {currentChannel.name}
+              </b>
+              </p>
+              <span className="text-muted">{t('mainPage.messageCount.key', { count: messCount })}</span>
             </div>
             <MessagesBox />
             <div id="input-message" className="px-5 py-3 mt-auto">

@@ -72,7 +72,7 @@ const SignupPage = () => {
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <Image src={cat} />
               </div>
-              <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto'}} onSubmit={formik.handleSubmit} >
+              <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit}>
                 <h1 className="text-center">{t('signupPage.form.h1')}</h1>
 
                 <FloatingLabel className="mb-3" controlId="floatingUsername" label={t('signupPage.form.labelName')}>

@@ -2,7 +2,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useFormik } from 'formik'
 import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import send from '../img/send.png'
 import { useTranslation } from 'react-i18next'
 import filter from 'leo-profanity'
@@ -37,7 +37,7 @@ const InputMessage = () => {
   })
 
   return (
-    <Form noValidate className='py-1 border rounded-2' onSubmit={formik.handleSubmit}>
+    <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
       <Form.Group>
         <InputGroup hasValidation>
           <Form.Control

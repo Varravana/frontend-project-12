@@ -17,12 +17,12 @@ const AddNewChannelButton = () => {
   return (
     <>
       <Button
-       className="text-primary btn-light position-relative p-0 m-0"
-       style={{
+        className="text-primary btn-light position-relative p-0 m-0"
+        style={{
           width: '20px', height: '20px', display: 'block',
           overflow: 'hidden',
         }}
-       onClick={() => handleAddShow()}
+        onClick={() => handleAddShow()}
       >
         <img
           src={add}
