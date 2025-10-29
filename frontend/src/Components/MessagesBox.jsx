@@ -45,7 +45,7 @@ const MessagesBox = () => {
     <div id="messages-box" className="px-5 overflow-auto">
       {allMessages.map(message => (
         <div key={message.id} className="text-break mb-2">
-          <b>{message.username}</b>
+        <b>{message.username}</b>
             :
           {message.body}
         </div>
