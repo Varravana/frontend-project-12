@@ -54,7 +54,6 @@ const SignupPage = () => {
         formik.resetForm()
         setServerError(null)
         navigate('/', { replace: false })
-
       }
       catch (error) {
         if (error.response && error.response.status === 409) {
