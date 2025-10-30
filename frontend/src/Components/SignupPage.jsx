@@ -8,11 +8,14 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { setLogin } from '../slices/loginSlice.js'
 
 const SignupPage = () => {
   const [serverError, setServerError] = useState(null)
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const notify = () => toast.error(`${t('toast.errors.netError')}`)
 
   const schema = yup.object().shape({
@@ -47,9 +50,11 @@ const SignupPage = () => {
         console.log('Регистрация успешна', response.data)
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('username', response.data.username)
+        dispatch(setLogin({ token: response.data.token, username: response.data.username }))
         formik.resetForm()
         setServerError(null)
         navigate('/', { replace: false })
+
       }
       catch (error) {
         if (error.response && error.response.status === 409) {
