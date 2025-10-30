@@ -67,8 +67,8 @@ const ChannelButton = ({ value, currentChannel }) => {
                       fontWeight: 'bold',
                       pointerEvents: 'none',
                     }}
-                    >
-                  Управление каналом
+                  >
+                    Управление каналом
                   </span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
