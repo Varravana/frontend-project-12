@@ -45,7 +45,7 @@ const ChannelButton = ({ value, currentChannel }) => {
     <>
       <Nav.Item className="w-100">
         {value.removable
-          ? 
+          ?
           (
           <Dropdown as={ButtonGroup} className="d-flex">
             <Button
