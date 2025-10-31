@@ -1,4 +1,4 @@
-import notF from '../img/404.png'
+import not from '../img/g2.png'
 import { Container, Col, Image } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +9,7 @@ const NotFound = () => {
     <Container fluid>
       <Col className="justify-content-center align-content-center h-100">
         <div className="text-center">
-          <Image src={notF} className="center" />
+          <Image src={not} className="center" />
           <h3>{t('notFoundPage.h3')}</h3>
         </div>
         <div className="text-center">

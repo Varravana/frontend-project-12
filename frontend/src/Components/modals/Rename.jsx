@@ -9,6 +9,7 @@ import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
+import { makeSchema } from '../../utilities/channelNameValidation.jsx'
 
 const duplicateCheck = (value, allChannels) => {
   let channelsNames = []
@@ -48,16 +49,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
   }, [show])
 
   // валидация формы
-  const schema = yup.object().shape({
-    channelName: yup
-      .string()
-      .required(`${t('modals.yup.required')}`)
-      .min(3, `${t('modals.yup.min3')}`)
-      .max(20, `${t('modals.yup.max20')}`)
-      .test('unique', `${t('modals.yup.unique')}`, (value) => {
-        return duplicateCheck(value, allChannels)
-      }),
-  })
+  const schema = makeSchema(t, allChannels)
 
   // форма начальное значение и отправка на сервер
   const formik = useFormik({
@@ -69,7 +61,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
       try {
         const editedChannel = { name: filter.clean(values.channelName) }
         const channelId = value.value.id
-        const response = await axios.patch(
+        await axios.patch(
           `/api/v1/channels/${channelId}`,
           editedChannel,
           {
@@ -78,7 +70,6 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
             },
           },
         )
-        console.log('изменено название канала', response.data)
         formik.resetForm()
         notifyRename()
         modalHide()
@@ -100,7 +91,7 @@ const RenameChannelModal = ({ value, show, modalHide }) => {
         <Modal.Title>{t('modals.modalRename.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
+        <Form autoComplete="off" onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="formAdd">
             <Form.Control
               data-testid="input-body"

@@ -10,27 +10,12 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
 import { setcurentChannel } from '../../slices/curentChannelSlice.js'
-
-const duplicateCheck = (value, allChannels) => {
-  let channelsNames = []
-  for (let key in allChannels) {
-    channelsNames.push(allChannels[key].name)
-  }
-  const result = _.includes(channelsNames, value)
-  if (result === false) {
-    return true
-  }
-  else {
-    return false
-  }
-}
+import { makeSchema } from '../../utilities/channelNameValidation.jsx'
 
 const AddNewChannelModal = ({ show, modalHide }) => {
   const inputEl = useRef(null)
   const token = localStorage.getItem('token')
   const allChannels = useSelector(state => state.channels.entities)
-  const [errorName, setErrorName] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -42,16 +27,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
   }, [show])
 
   // валидация формы
-  const schema = yup.object().shape({
-    channelName: yup
-      .string()
-      .required(`${t('modals.yup.required')}`)
-      .min(3, `${t('modals.yup.min3')}`)
-      .max(20, `${t('modals.yup.max20')}`)
-      .test('unique', `${t('modals.yup.unique')}`, (value) => {
-        return duplicateCheck(value, allChannels)
-      }),
-  })
+  const schema = makeSchema(t, allChannels)
   // уведомления
   const notifyAdd = () => toast.success(`${t('toast.channels.makeChannel')}`)
 
@@ -60,36 +36,29 @@ const AddNewChannelModal = ({ show, modalHide }) => {
     initialValues: {
       channelName: '',
     },
-    onSubmit: (values) => {
-      schema.validate(values, { abortEarly: false })
-        .then((values) => {
-          setErrorName(false)
-          setErrorMessage(null)
-          const newChannel = { name: filter.clean(values.channelName) }
-          axios.post('/api/v1/channels', newChannel, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }).then((response) => {
-            notifyAdd()
-            dispatch(setcurentChannel({ id: response.data.id }))
-            console.log('добавлен новый канал', response.data) // => { id: '3', name: 'new channel', removable: true }
-          })
-          values.channelName = ''
-          modalHide()
-        },
-        )
-        .catch((error) => {
-          setErrorName(true)
-          setErrorMessage(error.errors[0])
+    validationSchema: schema,
+    onSubmit: async (values) => {
+      try{
+        const newChannel = { name: filter.clean(values.channelName) }
+        const response = await axios.post('/api/v1/channels', newChannel, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
-    },
+        notifyAdd()
+        dispatch(setcurentChannel({ id: response.data.id }))
+        values.channelName = ''
+        modalHide()
+      }
+      catch(error) {
+        console.log(error ,'boom error')
+      }
+    }
   })
+
 
   const hideModal = () => {
     formik.values.channelName = ''
-    setErrorName(false)
-    setErrorMessage('')
     modalHide()
   }
 
@@ -100,7 +69,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
         <Modal.Title>{t('modals.modalAdd.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
+        <Form autoComplete="off" onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="formAdd">
             <Form.Control
               data-testid="input-body"
@@ -110,12 +79,12 @@ const AddNewChannelModal = ({ show, modalHide }) => {
               placeholder=""
               onChange={formik.handleChange}
               value={formik.values.channelName}
-              isInvalid={errorName}
+              isInvalid={formik.touched.channelName && !!formik.errors.channelName}
             />
             <Form.Label className="visually-hidden">Имя канала</Form.Label>
-            {errorName && (
+            {formik.touched.channelName && !!formik.errors.channelName && (
               <Form.Control.Feedback type="invalid">
-                {errorMessage}
+                {formik.errors.channelName}
               </Form.Control.Feedback>
             )}
           </Form.Group>

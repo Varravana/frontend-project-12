@@ -24,7 +24,6 @@ const App = () => {
   filter.add(filter.getDictionary('ru'))
 
   useEffect(() => {
-    console.log(loginToken)
     localStorage.getItem('token') ? setexitButtonOn(true) : setexitButtonOn(false)
   }, [loginToken])
 

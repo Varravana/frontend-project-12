@@ -7,8 +7,8 @@ import i18n from './i18next.js'
 import { Provider, ErrorBoundary } from '@rollbar/react'
 
 const rollbarConfig = {
-  accessToken: 'ebe2a921609543ff8160a26a5b678576',
-  environment: 'testenv',
+  accessToken: import.meta.env.VITE_ROLLBAR_TOKEN,
+  environment: import.meta.env.VITE_APP_ENVIRONMENT,
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

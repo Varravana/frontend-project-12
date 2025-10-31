@@ -1,45 +1,30 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import getNormalized from '../utilities/getNormalizet.js'
 import { setMessages, addMessage } from '../slices/messagesSlice.js'
-import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { io } from 'socket.io-client'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
+import { fetchData } from '../utilities/fetchData.jsx'
 
 const MessagesBox = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const { t } = useTranslation()
   const notify = () => toast(`${t('toast.errors.loadMessagesError')}`)
+  const messagesEndRef = useRef(null)
 
   useEffect(() => {
-    const fetchData = async () => {
-      await axios.get('/api/v1/messages', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((response) => {
-        const normDataMessages = getNormalized(response.data)
-        dispatch(setMessages({ entities: normDataMessages, ids: Object.keys(normDataMessages) }))
-      }).catch((error) => {
-        console.log('ошибка загрузки сообщений', error)
-        notify()
-      })
-
-      const socket = io()
-      socket.on('newMessage', (playload) => {
-        dispatch(addMessage(playload))
-      })
-    }
-    fetchData()
+    fetchData(dispatch, token, notify, setMessages, addMessage )
   }, [])
 
   const currentChannelId = useSelector(state => state.curentChannel.id)
 
   const allMessages = Object.values(useSelector(state => state.messages.entities))
     .filter(message => message.channelId === currentChannelId)
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [allMessages])
 
   return (
     <div id="messages-box" className="px-5 overflow-auto">
@@ -52,6 +37,7 @@ const MessagesBox = () => {
           {message.body}
         </div>
       ))}
+      <div ref={messagesEndRef} />
     </div>
   )
 }

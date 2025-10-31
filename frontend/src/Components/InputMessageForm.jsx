@@ -27,7 +27,6 @@ const InputMessage = () => {
         .then((response) => {
           if (response.data) {
             formik.resetForm()
-            console.log('сообщение отправлено инпут', response.data)
           }
         })
         .catch((error) => {
@@ -37,7 +36,7 @@ const InputMessage = () => {
   })
 
   return (
-    <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
+    <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit} autoComplete="off">
       <Form.Group>
         <InputGroup hasValidation>
           <Form.Control

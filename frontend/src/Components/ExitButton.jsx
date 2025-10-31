@@ -11,7 +11,6 @@ const ExitButton = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('username')
     dispatch(setLogin({ token: '', username: '' }))
-    console.log(localStorage)
   }
 
   return (

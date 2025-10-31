@@ -1,15 +1,15 @@
 import axios from 'axios'
 import { useFormik } from 'formik'
 import { Button, Form, Container, Row, Image, Card, FloatingLabel, Alert } from 'react-bootstrap'
-import cat from '../img/cat.png'
+import cat from '../img/new.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import * as yup from 'yup'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../slices/loginSlice.js'
+import { makeSchema } from '../utilities/signupValidation.js'
 
 const SignupPage = () => {
   const [serverError, setServerError] = useState(null)
@@ -17,25 +17,7 @@ const SignupPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const notify = () => toast.error(`${t('toast.errors.netError')}`)
-
-  const schema = yup.object().shape({
-    username: yup
-      .string()
-      .required(`${t('signupPage.yup.required')}`)
-      .min(3, `${t('signupPage.yup.min3')}`)
-      .max(20, `${t('signupPage.yup.max20')}`),
-    password: yup
-      .string()
-      .required(`${t('signupPage.yup.required')}`)
-      .min(6, `${t('signupPage.yup.min6')}`),
-    confirmpassword: yup
-      .string()
-      .required(`${t('signupPage.yup.required')}`)
-      .test('password-match', `${t('signupPage.yup.passwordMatch')}`, function (value) {
-        const password = this.parent.password
-        return value === password
-      }),
-  })
+  const schema = makeSchema(t)
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +29,6 @@ const SignupPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post('/api/v1/signup', { username: values.username, password: values.password })
-        console.log('Регистрация успешна', response.data)
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('username', response.data.username)
         dispatch(setLogin({ token: response.data.token, username: response.data.username }))
@@ -70,13 +51,13 @@ const SignupPage = () => {
   return (
     <Container className="h-100 fluid">
       <Row className="justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
+        <div className="col-12 col-md-8">
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <Image src={cat} />
               </div>
-              <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit}>
+              <Form autoComplete="off" className="col-12 col-md-6 mt-3 mt-md-0" style={{ margin: 'auto' }} onSubmit={formik.handleSubmit}>
                 <h1 className="text-center">{t('signupPage.form.h1')}</h1>
 
                 <FloatingLabel className="mb-3" controlId="floatingUsername" label={t('signupPage.form.labelName')}>
@@ -134,7 +115,7 @@ const SignupPage = () => {
                   </Alert>
                 )}
 
-                <Button variant="outline-primary" type="submit">{t('signupPage.form.submitButton')}</Button>
+                <Button className="w-100" variant="outline-primary" type="submit">{t('signupPage.form.submitButton')}</Button>
               </Form>
             </Card.Body>
           </Card>

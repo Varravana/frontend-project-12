@@ -17,11 +17,11 @@ const DeleteChannelModal = ({ value, show, modalHide }) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      console.log(response.data)
-    })
+    }).then(() => {
     modalHide()
     notifyDelete()
+    })
+
   }
 
   return (

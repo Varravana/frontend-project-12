@@ -36,21 +36,20 @@ const LoginPage = () => {
         .catch((error) => {
           setErrorLogin(true)
           notify()
-          console.log(error)
         })
     },
   })
 
   return (
-    <Container className="h-100 fluid">
+    <Container className="h-100">
       <Row className="justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
+        <div className="col-12 col-md-8">
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <Image src={cat} />
+                <Image className="align-items-center justify-content-center img-fluid" src={cat} />
               </div>
-              <Form className="col-12 col-md-6 mt-3 mt-md-0" style={{ width: '18rem', margin: 'auto' }} onSubmit={formik.handleSubmit}>
+              <Form autoComplete="off" className="col-12 col-md-6 mt-3 mt-md-0" style={{ margin: 'auto' }} onSubmit={formik.handleSubmit}>
                 <h1 className="text-center">{t('loginPage.h1')}</h1>
 
                 <FloatingLabel className="mb-3" controlId="floatingUsername" label={t('loginPage.labelName')}>
@@ -82,7 +81,7 @@ const LoginPage = () => {
                   )}
                 </FloatingLabel>
 
-                <Button variant="outline-primary" type="submit">{t('loginPage.submitButton')}</Button>
+                <Button className="w-100" variant="outline-primary" type="submit">{t('loginPage.submitButton')}</Button>
               </Form>
             </Card.Body>
             <Card.Footer>
