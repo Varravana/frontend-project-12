@@ -2,10 +2,8 @@ import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useFormik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
-import * as yup from 'yup'
+import { useEffect, useRef } from 'react'
 import axios from 'axios'
-import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
@@ -38,7 +36,7 @@ const AddNewChannelModal = ({ show, modalHide }) => {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      try{
+      try {
         const newChannel = { name: filter.clean(values.channelName) }
         const response = await axios.post('/api/v1/channels', newChannel, {
           headers: {
@@ -50,12 +48,11 @@ const AddNewChannelModal = ({ show, modalHide }) => {
         values.channelName = ''
         modalHide()
       }
-      catch(error) {
-        console.log(error ,'boom error')
+      catch (error) {
+        console.log(error)
       }
-    }
+    },
   })
-
 
   const hideModal = () => {
     formik.values.channelName = ''

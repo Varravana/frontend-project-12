@@ -14,7 +14,7 @@ const MessagesBox = () => {
   const messagesEndRef = useRef(null)
 
   useEffect(() => {
-    fetchData(dispatch, token, notify, setMessages, addMessage )
+    fetchData(dispatch, token, notify, setMessages, addMessage)
   }, [])
 
   const currentChannelId = useSelector(state => state.curentChannel.id)
@@ -23,7 +23,7 @@ const MessagesBox = () => {
     .filter(message => message.channelId === currentChannelId)
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [allMessages])
 
   return (

@@ -4,27 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useRef } from 'react'
 import axios from 'axios'
 import _ from 'lodash'
-import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
 import { makeSchema } from '../../utilities/channelNameValidation.jsx'
-
-const duplicateCheck = (value, allChannels) => {
-  let channelsNames = []
-  for (let key in allChannels) {
-    channelsNames.push(allChannels[key].name)
-  }
-  console.log(channelsNames)
-  const result = _.includes(channelsNames, value)
-  if (result === false) {
-    return true
-  }
-  else {
-    return false
-  }
-}
 
 const RenameChannelModal = ({ value, show, modalHide }) => {
   const inputEl = useRef(null)

@@ -33,7 +33,7 @@ const LoginPage = () => {
             navigate('/', { replace: false })
           }
         })
-        .catch((error) => {
+        .catch(() => {
           setErrorLogin(true)
           notify()
         })

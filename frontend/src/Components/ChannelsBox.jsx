@@ -25,7 +25,7 @@ const ChannelsBox = () => {
       }).then((responze) => {
         const normDataChannels = getNormalized(responze.data)
         dispatch(setChannels({ entities: normDataChannels, ids: Object.keys(normDataChannels) }))
-      }).catch((error) => {
+      }).catch(() => {
         notifyE()
       })
 
